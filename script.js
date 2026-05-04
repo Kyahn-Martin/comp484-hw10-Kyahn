@@ -10,6 +10,10 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     logerror();
     logtable(pet_info);
     loggroup('Pet\'s Info');
+    customlog();
+    neterror();
+    typeError();
+
     // When each button is clicked, it will "call" function for that button (functions are below)
     /* Here i'm using the .bind() method to bind the click event instead of the .click() method
     This would allow attatching multiple methods with one bind in the format "event:attatchment"*/
@@ -56,6 +60,26 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       console.log({name:'Johnny', weight: 10, happiness: 5, toys: 0});
       console.groupEnd();
     }
+    function customlog()
+    {
+      console.log('%c This is a custom log message with a custom style!', 'color: green; font-size: 16px; font-weight: bold;');
+    }
+    function neterror()
+    {
+      fetch('the_meaning_of_life');
+    }
+    function typeError()
+    {
+      document.querySelector('#date').textContent = new Date();
+    }
+    document.addEventListener('click', () => {
+    const startTime = Date.now();
+    // Loop for 3 seconds to block the main thread
+    while (Date.now() - startTime < 5000) {
+    // Blocking...
+    }
+    console.log("Task finished after 5 seconds");
+    });
     function clickedTreatButton() 
     {
       pet_info.happiness += 1;
