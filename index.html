@@ -28,6 +28,7 @@
         <div>Weight: <strong><span class="weight"></span> pounds</strong></div>
         <div>Happiness: <strong><span class="happiness"></span> tail wags (per min)</strong></div>
         <div class="toys-section">Toys: <strong><span class="toys"></span> different toys</div>
+        <div>Age: <strong><span class="age"></span></strong> years</div>
         <!-- Add an audio element that will play a sound effect when the pet becomes too sad or dies -->
         <audio id="audio" src="audio/sad_dog.wav"></audio>
         <audio id="audio1" src="audio/bell.mp3"></audio>
@@ -45,7 +46,12 @@
           <button class = "toy-button">
             Give toy
           </button>
-          
+          <button id="violation">
+            Cause Violation
+          </button>
+          <div>How old will your pet be after some years?
+          <input type="text" id="futureAgeInput">
+          </div>
         </div>
         
       </section>

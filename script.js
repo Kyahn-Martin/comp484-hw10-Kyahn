@@ -5,15 +5,15 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     the page from jumping when the notification is called later on */
     $('#notification').text('').fadeTo(0, 1).delay(0).fadeTo(1000, 0);
     checkAndUpdatePetInfoInHtml();
-    loginfo();
-    logwarn();
-    logerror();
-    logtable(pet_info);
-    loggroup('Pet\'s Info');
-    customlog();
+    
+    
+    
+    
+    
+    
     neterror();
-    typeError();
-
+    //typeError();
+    
     // When each button is clicked, it will "call" function for that button (functions are below)
     /* Here i'm using the .bind() method to bind the click event instead of the .click() method
     This would allow attatching multiple methods with one bind in the format "event:attatchment"*/
@@ -33,10 +33,18 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     ({
       click:(clickedGiveToy)
     }) 
+    $('#futureAgeInput').on('keypress', function(e) {
+      if (e.which === 13) 
+        {
+        calculateFutureAge();
+        }
+    });
   })
   
     // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
-    var pet_info = {name:"Fido", weight:10, happiness:5, toys:0};
+    var pet_info = {name:"Fido", weight:10, happiness:5, toys:0, age: 4};
+    logtable(pet_info);
+    loggroup('Pet\'s Info');
     function loginfo()
     {
       console.log('Hello, my name is ' + pet_info.name + ' and I weigh ' + pet_info.weight + ' pounds and my happiness level is ' + pet_info.happiness);
@@ -57,12 +65,12 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     {
       console.group(groupName);
       console.log(pet_info);
-      console.log({name:'Johnny', weight: 10, happiness: 5, toys: 0});
+      console.log({name:'Johnny', weight: 10, happiness: 5, toys: 0 , age: 3});
       console.groupEnd();
     }
     function customlog()
     {
-      console.log('%c This is a custom log message with a custom style!', 'color: green; font-size: 16px; font-weight: bold;');
+      console.log('%c Your dog has died', 'color: Red; font-size: 16px; font-weight: bold;');
     }
     function neterror()
     {
@@ -70,15 +78,16 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     }
     function typeError()
     {
-      document.querySelector('#date').textContent = new Date();
+      document.querySelector('#date').innerHTML = Date();
     }
-    document.addEventListener('click', () => {
-    const startTime = Date.now();
-    // Loop for 3 seconds to block the main thread
-    while (Date.now() - startTime < 5000) {
-    // Blocking...
-    }
-    console.log("Task finished after 5 seconds");
+
+      document.querySelector('.toy-button').addEventListener('click', (e) => 
+      {
+      const startTime = Date.now();
+      while (Date.now() - startTime < 1000) 
+      {
+
+      }
     });
     function clickedTreatButton() 
     {
@@ -109,8 +118,21 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     {
       pet_info.toys += 1;
       pet_info.happiness += 1;
+      causeViolation();
       $('#notification').text('You gave Fido a toy!').fadeTo(0, 1).delay(2000).fadeTo(1000, 0);
       checkAndUpdatePetInfoInHtml();
+    }
+  
+    function calculateFutureAge() {
+      var inputValue = parseInt($('#futureAgeInput').val());
+      if (isNaN(inputValue) || inputValue <= 0) {
+        $('#notification').text('Please enter a valid positive number.').fadeTo(0, 1).delay(2000).fadeTo(1000, 0);
+        return;
+      }
+      
+      var futureAge = inputValue + pet_info.age;
+      var message = 'In ' + inputValue + ' years ' + pet_info.name + ' will be ' + futureAge + ' years old';
+      $('#notification').text(message).fadeTo(0, 1).delay(2000).fadeTo(1000, 0);
     }
   
     function checkAndUpdatePetInfoInHtml() {
@@ -124,6 +146,7 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       {
         // If the wight reaches zero, the pet dies and you can't interact with it
         $('#notification').text(pet_info.name + ' has died').fadeTo(0, 1).delay(2000)
+        customlog();
         pet_info.weight = 0;
         pet_info.happiness = 0;
         // After the pet dies, change the color of the buttons to red and unbind the click function so you can't interact with it anymore
@@ -148,20 +171,25 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
       $('.weight').text(pet_info['weight']);
       $('.happiness').text(pet_info['happiness']);
       $('.toys').text(pet_info.toys);
+      $('.age').text(pet_info['age']);
       $('.toys-section').toggle(pet_info.toys > 0);
       // Depending on the weight and happiness of your pet, change the image to a happy dog, sad dog, or skeleton dog
       if (pet_info.weight === 0) 
         {
-        $('.pet-image').attr('src', 'images/sdog.png');
+          $('.pet-image').attr('src', 'images/sdog.png');
         } 
       else if(pet_info.happiness === 0) 
         {
-        $('.pet-image').attr('src', 'images/sad_dog.jpg');
+          logerror();
+          
+          $('.pet-image').attr('src', 'images/sad_dog.jpg');
         }
       else 
         {
           $('.pet-image').attr('src', 'images/happy_dog.jpg');
         }
-      }
+        loginfo();
+        logwarn();
+    }
     
   
