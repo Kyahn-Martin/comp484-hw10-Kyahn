@@ -5,7 +5,11 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
     the page from jumping when the notification is called later on */
     $('#notification').text('').fadeTo(0, 1).delay(0).fadeTo(1000, 0);
     checkAndUpdatePetInfoInHtml();
-  
+    loginfo();
+    logwarn();
+    logerror();
+    logtable(pet_info);
+    loggroup('Pet\'s Info');
     // When each button is clicked, it will "call" function for that button (functions are below)
     /* Here i'm using the .bind() method to bind the click event instead of the .click() method
     This would allow attatching multiple methods with one bind in the format "event:attatchment"*/
@@ -29,7 +33,29 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
   
     // Add a variable "pet_info" equal to a object with the name (string), weight (number), and happiness (number) of your pet
     var pet_info = {name:"Fido", weight:10, happiness:5, toys:0};
-
+    function loginfo()
+    {
+      console.log('Hello, my name is ' + pet_info.name + ' and I weigh ' + pet_info.weight + ' pounds and my happiness level is ' + pet_info.happiness);
+    }
+    function logwarn()
+    {
+      console.warn('Don\'t forget to keep your pet happy and healthy!');
+    }
+    function logerror()
+    {
+      console.error('Keep your pet alive!!!');
+    }
+    function logtable(pet_info)
+    {
+      console.table(pet_info);
+    } 
+    function loggroup(groupName)
+    {
+      console.group(groupName);
+      console.log(pet_info);
+      console.log({name:'Johnny', weight: 10, happiness: 5, toys: 0});
+      console.groupEnd();
+    }
     function clickedTreatButton() 
     {
       pet_info.happiness += 1;
@@ -108,7 +134,8 @@ $(function() { // Makes sure that your function is called once all the DOM eleme
         {
         $('.pet-image').attr('src', 'images/sad_dog.jpg');
         }
-        else {
+      else 
+        {
           $('.pet-image').attr('src', 'images/happy_dog.jpg');
         }
       }
